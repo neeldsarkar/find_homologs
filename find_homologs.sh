@@ -25,7 +25,7 @@ temp_blastdata=$(mktemp)
 printf "%-1s\t%-35s\t%-4s\t%-4s\t%-4s\t%-4s\t%-4s\n" "qseqid" "sseqid" "pident" "length" "qlen" "sstart" "send" > "$temp_header"
 
 # Match the query sequence to the input file using BLAST, filter for perfect matches only
-blastn -query "$1" -subject "$input_file" -task blastn-short -outfmt "6 qseqid sseqid pident length qlen sstart send" | awk '$3 == 100 && $4 == $5' >> "$temp_blastdata"
+blastn -query "$1" -subject "$input_file" -task blastn-short -outfmt "6 qseqid sseqid pident length qlen sstart send" | awk '{ if ($3 > 30 && ($4 / $5) * 100 > 90) print }' >> "$temp_blastdata"
 
 # If we got no matches, no headers, spaces, or data is added to the output file.
 # Otherwise, we need to add the header and the BLAST output data to the output file.

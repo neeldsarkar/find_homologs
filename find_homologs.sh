@@ -1,7 +1,4 @@
 #!/bin/bash
-# Make sure the output file is empty before adding contents
-: > "$output_file"
-
 # Make sure there are at least two input arguments - the first should be the input file name and the second should be the output file name
 if [ "$#" -ne 3 ]; then
     echo "Usage: $0 <query file> <input file> <output file>"
@@ -12,6 +9,9 @@ fi
 query_file=$1
 input_file=$2
 output_file=$3
+
+# Make sure the output file is empty before adding contents
+: > "$output_file"
 
 # Create temporary files for the header and housing the BLAST output data for line counting
 temp_header=$(mktemp)

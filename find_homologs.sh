@@ -1,4 +1,7 @@
 #!/bin/bash
+# Make sure the output file is empty before adding contents
+: > "$output_file"
+
 # Make sure there are at least two input arguments - the first should be the input file name and the second should be the output file name
 if [ "$#" -ne 3 ]; then
     echo "Usage: $0 <query file> <input file> <output file>"
